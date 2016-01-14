@@ -1,0 +1,41 @@
+# vim-ku-altr
+
+**vim-ku-altr** is a Vim plugin. This plugin is a source for *vim-ku* to deal with *vim-altr*.
+
+This plugin depends on:
+* [vim-altr](https://github.com/kana/vim-altr)
+* vim-ku
+
+Latest: https://github.com/Jagua/vim-ku-altr
+
+
+
+## Install
+
+
+### A) vim-plug
+
+```vim
+Plug 'Jagua/vim-ku-altr'
+```
+
+
+### B) NeoBundle
+
+```vim
+NeoBundle 'Jagua/vim-ku-altr'
+```
+
+
+## Key mappings
+
+```vim
+" prefix for Ku
+nnoremap [ku] <Nop>
+nmap <Space>k [ku]
+
+" for vim-ku-altr
+nnoremap [ku]al :<C-u>Ku altr<CR>
+```
+
+Typing `<Space>kal`, starts *vim-ku-altr*.
