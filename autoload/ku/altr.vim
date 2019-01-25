@@ -23,24 +23,31 @@ endfunction "}}}
 
 
 function! ku#altr#gather_items(source_name_ext, pattern) abort "{{{
-  let pwd = expand('#:p')
-  let cwd = pwd
-  let files = []
+  let current_bufname = bufname('#')
+  if empty(current_bufname)
+    return []
+  endif
+  let bufname_list = []
+  let direction = 'back'
+  let bufname = current_bufname
   while !0
-    call add(files, pwd)
-    let path = altr#_infer_the_missing_path(pwd, 'forward', altr#_rule_table())
-    if type(path) == type('')
-      let pwd = path
-      if pwd == cwd
+    let bufname = altr#_infer_the_missing_path(bufname, direction, altr#_rule_table())
+    if type(bufname) != v:t_string
+      if direction ==# 'back'
+        let direction = 'forward'
+        let bufname = current_bufname
+        continue
+      elseif direction ==# 'forward'
         break
       endif
-    else
+    elseif bufname ==# current_bufname
       break
     endif
-    unlet path
+    call add(bufname_list, bufname)
   endwhile
-  return map(files, '{
+  return map(bufname_list, '{
         \ "word" : v:val,
+        \ "menu" : "file",
         \ }')
 endfunction "}}}
 
